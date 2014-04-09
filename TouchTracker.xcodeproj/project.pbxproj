@@ -22,6 +22,7 @@
 		52CEEAAF187F3E4A0037259A /* BNRLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 52CEEAAE187F3E4A0037259A /* BNRLine.m */; };
 		52CEEAB2187F3EA90037259A /* BNRDrawViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52CEEAB1187F3EA90037259A /* BNRDrawViewController.m */; };
 		52CEEAB5187F3ECE0037259A /* BNRDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52CEEAB4187F3ECE0037259A /* BNRDrawView.m */; };
+		B15A06C918F50D5B000272BA /* ColorPicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = B15A06C818F50D5B000272BA /* ColorPicker.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		52CEEAB1187F3EA90037259A /* BNRDrawViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNRDrawViewController.m; sourceTree = "<group>"; };
 		52CEEAB3187F3ECE0037259A /* BNRDrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNRDrawView.h; sourceTree = "<group>"; };
 		52CEEAB4187F3ECE0037259A /* BNRDrawView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNRDrawView.m; sourceTree = "<group>"; };
+		B15A06C818F50D5B000272BA /* ColorPicker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ColorPicker.xib; path = ../ColorPicker.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +124,7 @@
 				52CEEAAE187F3E4A0037259A /* BNRLine.m */,
 				52CEEAB3187F3ECE0037259A /* BNRDrawView.h */,
 				52CEEAB4187F3ECE0037259A /* BNRDrawView.m */,
+				B15A06C818F50D5B000272BA /* ColorPicker.xib */,
 				52CEEAB0187F3EA90037259A /* BNRDrawViewController.h */,
 				52CEEAB1187F3EA90037259A /* BNRDrawViewController.m */,
 				52CEEA90187F3E310037259A /* Images.xcassets */,
@@ -236,6 +239,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				52CEEA89187F3E310037259A /* InfoPlist.strings in Resources */,
+				B15A06C918F50D5B000272BA /* ColorPicker.xib in Resources */,
 				52CEEA91187F3E310037259A /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

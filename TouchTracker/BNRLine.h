@@ -10,6 +10,7 @@
 
 @interface BNRLine : UIView
 
+@property (nonatomic)UIColor* color;
 @property (nonatomic) CGPoint begin;
 @property (nonatomic) CGPoint end;
 @property (nonatomic)float width;

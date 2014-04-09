@@ -12,11 +12,13 @@
 #define MAX_WIDTH 50
 @interface BNRDrawView () <UIGestureRecognizerDelegate>
 
+@property (nonatomic, weak)IBOutlet UIView* colorView;
 @property (nonatomic, strong) NSMutableDictionary *linesInProgress;
 @property (nonatomic, strong) NSMutableArray *finishedLines;
 @property (nonatomic, weak) BNRLine* selectedLine;
 @property (nonatomic, strong)UIPanGestureRecognizer *moveRecognizer;
 @property (nonatomic) int lineWidth;
+@property (nonatomic, strong)UIColor* selectedColor;
 
 @end
 
@@ -27,6 +29,7 @@
     self = [super initWithFrame:r];
 
     if (self) {
+        self.selectedColor = [UIColor blackColor];
         self.linesInProgress = [[NSMutableDictionary alloc] init];
         self.finishedLines = [[NSMutableArray alloc] init];
         self.backgroundColor = [UIColor grayColor];
@@ -45,6 +48,10 @@
         self.moveRecognizer.delegate = self;
         self.moveRecognizer.cancelsTouchesInView = NO;
         [self addGestureRecognizer:self.moveRecognizer];
+        UISwipeGestureRecognizer *fingerSwipe = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(displayPanel:)];
+        [fingerSwipe setNumberOfTouchesRequired:2];
+        [fingerSwipe setDelaysTouchesBegan:YES];
+        [self addGestureRecognizer:fingerSwipe];
     }
 
     return self;
@@ -64,12 +71,12 @@
 - (void)drawRect:(CGRect)rect
 {
     // Draw finished lines in black
-    [[UIColor blackColor]set];
     for (BNRLine *line in self.finishedLines) {
         //CGFloat angle = [self pointPairToBearingDegrees:line.begin secondPoint:line.end];
         //int intpart = (int)angle;
         //double decpart = angle - intpart;
         //[[UIColor colorWithHue:decpart saturation:1 brightness:1 alpha:1]set];
+        [line.color set];
         [self strokeLine:line];
     }
 
@@ -180,7 +187,7 @@
            withEvent:(UIEvent *)event
 {
     // Let's put in a log statement to see the order of events
-    NSLog(@"%@", NSStringFromSelector(_cmd));
+    //NSLog(@"%@", NSStringFromSelector(_cmd));
 
     for (UITouch *t in touches) {
         NSValue *key = [NSValue valueWithNonretainedObject:t];
@@ -201,7 +208,7 @@
     for (UITouch *t in touches) {
         NSValue *key = [NSValue valueWithNonretainedObject:t];
         BNRLine *line = self.linesInProgress[key];
-
+        line.color = self.selectedColor;
         [self.finishedLines addObject:line];
         [self.linesInProgress removeObjectForKey:key];
     }
@@ -261,5 +268,19 @@
         width = MAX_WIDTH;
     }
     return width;
+}
+-(void)displayPanel:(UISwipeGestureRecognizer*)gr{
+    NSLog(@"swiped up");
+    CGRect frame = CGRectMake(0, self.window.frame.size.height-50, self.window.frame.size.width, 50);
+    NSLog(@"%@",NSStringFromCGRect(frame));
+    [[NSBundle mainBundle] loadNibNamed:@"ColorSelectView" owner:self options:nil];
+    UIView *colorSelect = self.colorView;
+    self.colorView.frame = frame;
+    [self.window addSubview:colorSelect];
+    [self.window setNeedsDisplay];
+}
+-(IBAction)colorSelected:(UIButton*)sender{
+    self.selectedColor = sender.backgroundColor;
+    [self.colorView removeFromSuperview];
 }
 @end

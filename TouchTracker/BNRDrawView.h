@@ -10,4 +10,6 @@
 
 @interface BNRDrawView : UIView
 
+-(IBAction)colorSelected:(id)sender;
+
 @end
