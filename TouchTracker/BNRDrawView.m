@@ -8,7 +8,8 @@
 
 #import "BNRDrawView.h"
 #import "BNRLine.h"
-
+#define MIN_WIDTH 5
+#define MAX_WIDTH 50
 @interface BNRDrawView () <UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) NSMutableDictionary *linesInProgress;
@@ -52,7 +53,7 @@
 - (void)strokeLine:(BNRLine *)line
 {
     UIBezierPath *bp = [UIBezierPath bezierPath];
-    bp.lineWidth = 10;
+    bp.lineWidth = line.width;
     bp.lineCapStyle = kCGLineCapRound;
 
     [bp moveToPoint:line.begin];
@@ -184,7 +185,7 @@
     for (UITouch *t in touches) {
         NSValue *key = [NSValue valueWithNonretainedObject:t];
         BNRLine *line = self.linesInProgress[key];
-
+        line.width = [self widthFromVelocity];
         line.end = [t locationInView:self];
     }
 
@@ -249,5 +250,16 @@
 -(void)deleteLine:(id)sender{
     [self.finishedLines removeObject:self.selectedLine];
     [self setNeedsDisplay];
+}
+-(float)widthFromVelocity{
+    CGPoint velocity = [self.moveRecognizer velocityInView:self]; //<---------------- grab the velocity
+    float width = (abs(velocity.x) + abs(velocity.y)) / 50;
+    if (width < MIN_WIDTH) {
+        width = MIN_WIDTH;
+    }
+    else if (width > MAX_WIDTH){
+        width = MAX_WIDTH;
+    }
+    return width;
 }
 @end
